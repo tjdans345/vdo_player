@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget renderVideo() {
     return Center(
-      child: CustomVideoPlayer(video: video!,), // video 가 null 이 아닐때만 renderVideo 가 호출되기 때문에 !를 붙여준다.
+      child: CustomVideoPlayer(video: video!, onNewVideoPressed: onNewVideoPressed,), // video 가 null 이 아닐때만 renderVideo 가 호출되기 때문에 !를 붙여준다.
     );
   }
 
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _Logo(
-              onTap: onLogoTap,
+              onTap: onNewVideoPressed,
           ),
           SizedBox(
             height: 30.0,
@@ -45,13 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onLogoTap() async {
+  void onNewVideoPressed() async {
+    print("여기");
     final video = await ImagePicker().pickVideo(
         source: ImageSource.gallery
     );
-
     if(video != null) {
       setState( ()  {
+        print("갱신");
         this.video = video;
       });
     }
